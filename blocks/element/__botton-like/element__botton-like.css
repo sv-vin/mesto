@@ -1,10 +1,12 @@
 .element__botton-like {
     margin: 0;
     padding: 0;
-    background: url(../../../images/like.svg);
+    background: transparent;
+    background-position: center center;
+    background-image: url(../../../images/like.svg);
+    background-size: 19px 19px;
     border: none;
     box-sizing: border-box;
-    background-size: auto;
     background-repeat: no-repeat;
     width: 22px;
     height: 19px;

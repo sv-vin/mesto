@@ -1,22 +1,25 @@
-.profile__edd-button {
+.profile__add-button {
   margin-right: 0px;
   margin-left: auto;
   padding: 0;
   border: 2px solid #FFFFFF;
-  max-width: 150px;
-  min-height: 50px;
+  width: 150px;
   height: 50px;
-  width: 100%;
   top: 35px;
   bottom: 35px;
   box-sizing: border-box;
-  background: transparent center url(../../../images/Add\ Button.svg);
+  border: 2px solid #FFFFFF;
+  background: transparent center url(../../../images/Vector.svg);
+  background-size: 22px;
   background-size: auto;
   background-repeat: no-repeat;
 }
 
 @media screen and (max-width: 680px) {
-  .profile__edd-button {
+  .profile__add-button {
+    max-width: 320px;
+    width: 100%;
     margin: 0;
+    background-size: 16px;
   }
 }
