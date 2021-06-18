@@ -1,13 +1,13 @@
 .element__botton-like {
     margin: 0;
     padding: 0;
+    min-width: 25px;
+    min-height: 25px;
     background: transparent;
-    background-position: center center;
     background-image: url(../../../images/like.svg);
-    background-size: 19px 19px;
+    background-size: 22px 19px;
     border: none;
     box-sizing: border-box;
     background-repeat: no-repeat;
-    width: 22px;
-    height: 19px;
+    background-position: center center;
 }

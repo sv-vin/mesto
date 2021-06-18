@@ -18,8 +18,8 @@
                 <img src="./images/Avatar.jpg" alt="Жак-Ив Кусто" class="profile__avatar">
                 <div class="profile__info">
                     <div class="profile__block">
-                    <h1 class="profile__title">Жак-Ив Кусто</h1>
-                    <button class="profile__edit-button opacity"></button>
+                        <h1 class="profile__title">Жак-Ив Кусто</h1>
+                        <button class="profile__edit-button opacity"></button>
                     </div>
                     <p class="profile__text">Исследователь океана</p>
                 </div>
@@ -39,7 +39,6 @@
                         <h2 class="element__title">Кижи, Карелия</h2>
                         <button class="element__botton-like element__botton-like_active opacity"></button>
                     </div>
-
                 </div>
                 <div class="element">
                     <img src="./images/петергоф.jpg" alt="Петергоф" class="element__image">
@@ -47,7 +46,6 @@
                         <h2 class="element__title">Петергоф, Санкт-Петербург</h2>
                         <button class="element__botton-like element__botton-like_active opacity"></button>
                     </div>
-
                 </div>
                 <div class="element">
                     <img src="./images/шиханы.jpg" alt="Шиханы" class="element__image">
@@ -55,7 +53,6 @@
                         <h2 class="element__title">Шиханы, Башкортостан</h2>
                         <button class="element__botton-like element__botton-like_active opacity"></button>
                     </div>
-
                 </div>
                 <div class="element">
                     <img src="./images/чусовая.jpg" alt="Чусовая" class="element__image">
@@ -63,7 +60,6 @@
                         <h2 class="element__title">Чусовая, Пермский край</h2>
                         <button class="element__botton-like element__botton-like_active opacity"></button>
                     </div>
-
                 </div>
                 <div class="element">
                     <img src="./images/кучерлинские озера.jpg" alt="Кучерлинские озера" class="element__image">
@@ -78,16 +74,15 @@
             <p class="footer__copyright">©2021 Mesto Russia</p>
         </footer>
         <section class="popup">
-            <div class="popup__conteiner">
-                <div class="popup__content">
-                    <h2 class="popup__heading">Редактировать профиль</h2>
-                    <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Имя">
-                    <input type="text" name="description" class="popup__input popup__input_type_job" placeholder="Занятие">
-                    <button class="popup__botton-close"></button>
-                    <button class="popup__botton-save">Сохранить</button>
-                </div>
-            </div>
+            <form class="popup__conteiner" name="edit_form">
+                <h2 class="popup__heading">Редактировать профиль</h2>
+                <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Имя">
+                <input type="text" name="description" class="popup__input popup__input_type_job" placeholder="Занятие">
+                <button class="popup__button-close opacity" type="button"></button>
+                <button class="popup__button-save" type="submit">Сохранить</button>
+            </form>
         </section>
+        <script src="./scripts/index.js"></script>
     </div>
 </body>
 
