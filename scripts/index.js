@@ -15,7 +15,6 @@ const openPopup = function () {
     popupElement.classList.add('popup_is-opened')
     popupElementNameInput.value = profileName.textContent;
     popupElementJobInput.value = profileJob.textContent;
-
 }
 
 const closePopup = function () {
