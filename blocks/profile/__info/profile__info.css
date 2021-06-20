@@ -12,7 +12,8 @@
     .profile__info {
         width: calc(100% - 38px);
         align-items: center;
-        margin-top: 22px;
-        margin-bottom: 36px;
+        margin-left: 0;
+        margin-bottom: 33px;
+        margin-top: 25px;
     }
 }

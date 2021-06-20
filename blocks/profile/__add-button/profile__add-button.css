@@ -12,6 +12,17 @@
   background-size: 22px;
   background-size: auto;
   background-repeat: no-repeat;
+  -moz-transition: opacity 0.4s;
+  -webkit-transition: opacity 0.4s;
+  -ms-transition: opacity 0.4s;
+  -o-transition: opacity 0.4s;
+  transition: opacity 0.4s;
+  cursor: pointer;
+}
+
+.profile__add-button:hover {
+  opacity: 0.6;
+  filter: alpha(opacity=60);
 }
 
 @media screen and (max-width: 680px) {

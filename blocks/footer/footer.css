@@ -7,3 +7,11 @@
     flex-direction: row;
     align-items: flex-start;
 }
+
+@media screen and (max-width: 680px) {
+    .footer {
+        padding-top: 43px;
+        padding-bottom: 36px;
+        ;
+    }
+}

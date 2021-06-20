@@ -15,73 +15,76 @@
         </header>
         <main class="content">
             <section class="profile">
-                <img src="./images/Avatar.jpg" alt="Жак-Ив Кусто" class="profile__avatar">
+                <img src="./images/Avatar.jpg" alt="Аватар пользователя" class="profile__avatar">
                 <div class="profile__info">
                     <div class="profile__block">
                         <h1 class="profile__title">Жак-Ив Кусто</h1>
-                        <button class="profile__edit-button opacity"></button>
+                        <button class="profile__edit-button" type="button"></button>
                     </div>
                     <p class="profile__text">Исследователь океана</p>
                 </div>
-                <button class="profile__add-button opacity"></button>
+                <button class="profile__add-button" type="button"></button>
             </section>
             <section class="elements">
                 <div class="element">
                     <img src="./images/хибины.jpg" alt="Хибины" class="element__image">
                     <div class="element__item">
                         <h2 class="element__title">Хибины, Мурманская область</h2>
-                        <button class="element__botton-like element__botton-like_active opacity"></button>
+                        <button class="element__button-like" type="button"></button>
                     </div>
                 </div>
                 <div class="element">
                     <img src="./images/кижи.jpg" alt="Кижи" class="element__image">
                     <div class="element__item">
                         <h2 class="element__title">Кижи, Карелия</h2>
-                        <button class="element__botton-like element__botton-like_active opacity"></button>
+                        <button class="element__button-like" type="button"></button>
                     </div>
                 </div>
                 <div class="element">
                     <img src="./images/петергоф.jpg" alt="Петергоф" class="element__image">
                     <div class="element__item">
                         <h2 class="element__title">Петергоф, Санкт-Петербург</h2>
-                        <button class="element__botton-like element__botton-like_active opacity"></button>
+                        <button class="element__button-like" type="button"></button>
                     </div>
                 </div>
                 <div class="element">
                     <img src="./images/шиханы.jpg" alt="Шиханы" class="element__image">
                     <div class="element__item">
                         <h2 class="element__title">Шиханы, Башкортостан</h2>
-                        <button class="element__botton-like element__botton-like_active opacity"></button>
+                        <button class="element__button-like" type="button"></button>
                     </div>
                 </div>
                 <div class="element">
                     <img src="./images/чусовая.jpg" alt="Чусовая" class="element__image">
                     <div class="element__item">
                         <h2 class="element__title">Чусовая, Пермский край</h2>
-                        <button class="element__botton-like element__botton-like_active opacity"></button>
+                        <button class="element__button-like" type="button"></button>
                     </div>
                 </div>
                 <div class="element">
-                    <img src="./images/кучерлинские озера.jpg" alt="Кучерлинские озера" class="element__image">
+                    <img src="./images/кучерлинские-озера.jpg" alt="Кучерлинские озера" class="element__image">
                     <div class="element__item">
                         <h2 class="element__title">Кучерлинские озера, Алтай</h2>
-                        <button class="element__botton-like element__botton-like_active opacity"></button>
+                        <button class="element__button-like" type="button"></button>
                     </div>
                 </div>
             </section>
         </main>
         <footer class="footer">
-            <p class="footer__copyright">©2021 Mesto Russia</p>
+            <p class="footer__copyright">© 2021 Mesto Russia</p>
         </footer>
-        <section class="popup">
-            <form class="popup__conteiner" name="edit_form">
+        <div class="popup">
+            <div class="popup__conteiner">
                 <h2 class="popup__heading">Редактировать профиль</h2>
-                <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Имя">
-                <input type="text" name="description" class="popup__input popup__input_type_job" placeholder="Занятие">
-                <button class="popup__button-close opacity" type="button"></button>
-                <button class="popup__button-save" type="submit">Сохранить</button>
-            </form>
-        </section>
+                <form class="popup__form">
+                    <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Имя">
+                    <input type="text" name="description" class="popup__input popup__input_type_job"
+                        placeholder="Занятие">
+                    <button class="popup__button-save" type="submit">Сохранить</button>
+                </form>
+                <button class="popup__button-close" type="button"></button>
+            </div>
+        </div>
         <script src="./scripts/index.js"></script>
     </div>
 </body>
