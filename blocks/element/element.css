@@ -2,4 +2,5 @@
     background: #FFFFFF;
     overflow: hidden;
     border-radius: 10px;
+    position: relative;
 }
