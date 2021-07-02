@@ -9,7 +9,7 @@ const popupElementJobInput = popupElement.querySelector('.popup__input_type_job'
 const popupFormElement = popupElement.querySelector('.popup__form')
 const popupSaveButtonElement = popupElement.querySelector('.popup__button-save')
 const popupCloseButtonElement = popupElement.querySelector('.popup__button-close')
-const popupElementAdd = document.querySelector('.popup__add_card')
+const popupElementAdd = document.querySelector('.popup_type_add-card')
 const popupOpenCardAddElement = profileElement.querySelector('.profile__add-button')
 const newNameElement = popupElementAdd.querySelector('.popup__input_type_name')
 const newLinkElement = popupElementAdd.querySelector('.popup__input_type_link')
@@ -79,7 +79,7 @@ const initialCards = [
 //получение элемента
 const cardTemplate = document.querySelector('.template').content;
 const cardCase = document.querySelector('.elements');
-const imagePopup = document.querySelector('.popup__pic') 
+const imagePopup = document.querySelector('.popup_type_image') 
 const  imageElement = imagePopup.querySelector('.popup__image')
 const  imageCaption = imagePopup.querySelector('.popup__image-title')
 const popupCloseimagePopup = imagePopup.querySelector('.popup__button-close')
