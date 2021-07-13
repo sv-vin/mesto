@@ -1,4 +1,3 @@
-// переносим карточки в скрипт
 const initialCards = [
     {
         name: 'Хибины, Мурманская область',
@@ -154,6 +153,13 @@ const addNewElement = (evt) => {
     closePopup(popupElementAdd);
     newNameElement.value = "";
     newLinkElement.value = "";
+
+    //добавляем карточку на энтер
+    function keyHandler(evt) {
+        if (evt.key === 'Enter') {
+            addNewElement(newNameElement.value, newLinkElement.value);
+        }
+    }
 };
 
 // Регистрируем обработчики событий по клику
@@ -171,5 +177,3 @@ popupFormElementAdd.addEventListener('submit', addNewElement);
 
 popupCloseImagePopup.addEventListener('click', () => closePopup(imagePopup));
 imagePopup.addEventListener('click', closePopupByClickOnOverlay);
-
-

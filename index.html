@@ -32,60 +32,63 @@
             <p class="footer__copyright">© 2021 Mesto Russia</p>
         </footer>
     </div>
-        <div class="popup">
-            <div class="popup__conteiner">
-                <h2 class="popup__heading">Редактировать профиль</h2>
-                <form class="popup__form" name="edit_form" novalidate>
-                    <section class="popup__section">
-                    <input type="text" class="popup__input popup__input_type_name" id="form_name" name="form_name" placeholder="Имя" maxlength="40" minlength="2" required="">
+    <div class="popup">
+        <div class="popup__conteiner">
+            <h2 class="popup__heading">Редактировать профиль</h2>
+            <form class="popup__form" name="edit_form" novalidate>
+                <section class="popup__section">
+                    <input type="text" class="popup__input popup__input_type_name" id="form_name" name="form_name"
+                        placeholder="Имя" maxlength="40" minlength="2" required="">
                     <span class="popup__input-error" id="form_name-error"></span>
                 </section>
                 <section class="popup__section">
-                        <input type="text" class="popup__input popup__input_type_job" id="form_job" name="form_job" placeholder="Занятие" maxlength="200" minlength="2" required="">
-                        <span class="popup__input-error" id="form_job-error"></span>
-                    </section>
-                    <button class="popup__button-save" type="submit">Сохранить</button>
-                </form>
-                <button class="popup__button-close" type="button"></button>
-            </div>
+                    <input type="text" class="popup__input popup__input_type_job" id="form_job" name="form_job"
+                        placeholder="Занятие" maxlength="200" minlength="2" required="">
+                    <span class="popup__input-error" id="form_job-error"></span>
+                </section>
+                <button class="popup__button-save" type="submit">Сохранить</button>
+            </form>
+            <button class="popup__button-close" type="button"></button>
         </div>
-        <div class="popup popup_type_add-card">
-            <div class="popup__conteiner">
-                <h2 class="popup__heading">Новое место</h2>
-                <form class="popup__form popup__form-add" name="form">
-                    <section class="popup__section">
-                    <input type="text" class="popup__input popup__input_type_name popup__input_error" id="form_mesto" name="form_mesto" placeholder="Название" maxlength="30" minlength="2" required="">
-                    <span class="popup__input-error popup__input-error_active" id="form_mesto-error">Текст должен быть не короче 2&nbsp;симв. Длина текста сейчас: 1&nbsp;символ.</span>
+    </div>
+    <div class="popup popup_type_add-card">
+        <div class="popup__conteiner">
+            <h2 class="popup__heading">Новое место</h2>
+            <form class="popup__form popup__form-add" name="form">
+                <section class="popup__section">
+                    <input type="text" class="popup__input popup__input_type_name popup__input_error" id="form_mesto"
+                        name="form_mesto" placeholder="Название" maxlength="30" minlength="2" required="">
+                    <span class="popup__input-error popup__input-error_active" id="form_mesto-error"></span>
                 </section>
                 <section class="popup__section">
-                        <input type="url" class="popup__input popup__input_type_link popup__input_error" id="form_link" name="form_link" placeholder="Ссылка на картинку" required="">
-                        <span class="popup__input-error popup__input-error_vactive" id="form_link-error">Введите URL.</span>
-                    </section>
-                    <button class="popup__button-save" type="submit">Сохранить</button>
-                </form>
-                <button class="popup__button-close" type="button"></button>
+                    <input type="url" class="popup__input popup__input_type_link popup__input_error" id="form_link"
+                        name="form_link" placeholder="Ссылка на картинку" required="">
+                    <span class="popup__input-error popup__input-error_vactive" id="form_link-error"></span>
+                </section>
+                <button class="popup__button-save" type="submit">Сохранить</button>
+            </form>
+            <button class="popup__button-close" type="button"></button>
+        </div>
+    </div>
+    <div class="popup popup_type_image">
+        <div class="popup__image-container">
+            <img src=" " alt=" " class="popup__image">
+            <h3 class="popup__image-title"></h3>
+            <button class="popup__button-close" type="button"></button>
+        </div>
+    </div>
+    <template class="template">
+        <div class="element">
+            <img class="element__image" src=" " alt=" ">
+            <button type="button" class="element__button-delete"></button>
+            <div class="element__item">
+                <h2 class="element__title"></h2>
+                <button class="element__button-like" type="button"></button>
             </div>
         </div>
-        <div class="popup popup_type_image">
-            <div class="popup__image-container">
-                <img src=" " alt=" " class="popup__image">
-                <h3 class="popup__image-title"></h3>
-                <button class="popup__button-close" type="button"></button>
-            </div>
-        </div>
-
-        <template class="template">
-            <div class="element">
-                <img class="element__image" src=" " alt=" ">
-                <button type="button" class="element__button-delete"></button>
-                <div class="element__item">
-                    <h2 class="element__title"></h2>
-                    <button class="element__button-like" type="button"></button>
-                </div>
-            </div>
-        </template>
-        <script src="./scripts/index.js" defer></script>
-        <script src="./scripts/validate.js"></script>
+    </template>
+    <script src="./scripts/index.js" defer></script>
+    <script src="./scripts/validate.js"></script>
 </body>
 
 </html>
