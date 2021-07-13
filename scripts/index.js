@@ -85,14 +85,29 @@ initialCards.forEach(function (el) {
     cardCase.append(getCard(el.name, el.link));
 });
 
+const activePopup = document.querySelector('.popup_is-opened');
+document.addEventListener('keyup', (event) => {
+    if (event.key === 'Escape') {
+        popups.forEach((popup) => {
+            popup.classList.remove('popup_is-opened');
+        })
+    }
+})
+function handleEsc(evt) {
+    if (evt.key === 'Escape')
+        closePopup(popup);
+}
+
 // Открыть попап
 function openPopup(popup) {
     popup.classList.add('popup_is-opened')
+    // document.addEventListener('keyup', handleEsc)
 }
 
 // Закрыть попап
 function closePopup(popup) {
     popup.classList.remove('popup_is-opened')
+    // document.addEventListener('keyup', handleEsc);
 }
 
 // Открыть всплывающее окно редактирование профиля
@@ -119,28 +134,15 @@ function openImagePopup(event) {
 };
 
 //закрытие окона по клику на затемненную область
-const closePopupByClickOnOverlay = function (event) {
-    console.log(event.target, event.currentTarget)
-    if (event.target !== event.currentTarget) {
-        return
-    }
-    closePopup(popupElement)
-}
-
-const closePopupAddByClickOnOverlay = function (event) {
-    console.log(event.target, event.currentTarget)
-    if (event.target !== event.currentTarget) {
-        return
-    }
-    closePopup(popupElementAdd)
-}
-
-const closeImagePopupByClickOnOverlay = function (event) {
-    console.log(event.target, event.currentTarget)
-    if (event.target !== event.currentTarget) {
-        return
-    }
-    closePopup(imagePopup)
+const popups = document.querySelectorAll('.popup')
+const closePopupByClickOnOverlay = function () {
+    popups.forEach((popup) => {
+        popup.addEventListener('click', (evt) => {
+            if (evt.target.classList.contains('popup_is-opened')) {
+                closePopup(popup)
+            }
+        })
+    })
 }
 
 //добавляем новую карточку 
@@ -157,13 +159,17 @@ const addNewElement = (evt) => {
 // Регистрируем обработчики событий по клику
 popupOpenButtonElement.addEventListener('click', () => openProfilePopup(popupElement));
 popupCloseButtonElement.addEventListener('click', () => closePopup(popupElement));
-popupElement.addEventListener('click', closePopupByClickOnOverlay)
+popupElement.addEventListener('click', closePopupByClickOnOverlay);
 popupFormElement.addEventListener('submit', formSubmitHandler);
+
 
 popupOpenCardAddElement.addEventListener('click', () => openPopup(popupElementAdd));
 popupCloseCardAddElement.addEventListener('click', () => closePopup(popupElementAdd));
-popupElementAdd.addEventListener('click', closePopupAddByClickOnOverlay);
+popupElementAdd.addEventListener('click', closePopupByClickOnOverlay);
 popupFormElementAdd.addEventListener('submit', addNewElement);
 
+
 popupCloseImagePopup.addEventListener('click', () => closePopup(imagePopup));
-imagePopup.addEventListener('click', closeImagePopupByClickOnOverlay);
+imagePopup.addEventListener('click', closePopupByClickOnOverlay);
+
+
