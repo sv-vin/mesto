@@ -140,11 +140,12 @@ popups.forEach((popup) => {
         })
 
 //добавляем новую карточку 
-popupSaveCardAddElement.setAttribute("disabled", true);
-popupSaveCardAddElement.classList.add(validationConfig.inactiveButtonClass);
+
 
 const addNewElement = (evt) => {
     evt.preventDefault()
+    popupSaveCardAddElement.setAttribute("disabled", true);
+popupSaveCardAddElement.classList.add(validationConfig.inactiveButtonClass);
     const newName = newNameElement.value;
     const newLink = newLinkElement.value;
     cardCase.prepend(getCard(newName, newLink));
