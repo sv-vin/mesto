@@ -1,29 +1,8 @@
-const initialCards = [
-    {
-        name: 'Хибины, Мурманская область',
-        link: './images/хибины.jpeg'
-    },
-    {
-        name: 'Кижи, Карелия',
-        link: './images/кижи.jpeg'
-    },
-    {
-        name: 'Петергоф, Санкт-Петербург',
-        link: './images/петергоф.jpeg'
-    },
-    {
-        name: 'Шиханы, Башкортостан',
-        link: './images/шиханы.jpeg'
-    },
-    {
-        name: 'Чусовая, Пермский край',
-        link: './images/чусовая.jpeg'
-    },
-    {
-        name: 'Кучерлинские озера, Алтай',
-        link: './images/кучерлинские-озера.jpeg'
-    }
-];
+import { initialCards } from './initialCards.js'
+import { Card } from './Card.js'
+import { handleEsc, openPopup, closePopup } from './utils.js'
+import validationConfig from './validationConfig.js'
+import formValidator from './FormValidator.js'
 
 // Делаем выборку DOM элементов
 const profileElement = document.querySelector('.profile')
@@ -45,66 +24,46 @@ const popupFormElementAdd = popupElementAdd.querySelector('.popup__form')
 const popupSaveCardAddElement = popupElementAdd.querySelector('.popup__button-save')
 const popupCloseCardAddElement = popupElementAdd.querySelector('.popup__button-close')
 
-const cardTemplate = document.querySelector('.template').content;
 const cardCase = document.querySelector('.elements');
 
 const imagePopup = document.querySelector('.popup_type_image')
-const imageElement = imagePopup.querySelector('.popup__image')
-const imageCaption = imagePopup.querySelector('.popup__image-title')
 const popupCloseImagePopup = imagePopup.querySelector('.popup__button-close')
 
-//наполнение элемента
-function getCard(name, link) {
-    const newCard = cardTemplate.querySelector('.element').cloneNode(true);
-    const cardText = newCard.querySelector('.element__title');
-    const cardImage = newCard.querySelector('.element__image');
-    const cardDeleteButton = newCard.querySelector('.element__button-delete');
-    const cardLikeButton = newCard.querySelector('.element__button-like');
-    cardText.textContent = name;
-    cardImage.src = link;
-    cardImage.alt = name;
+// валидация
+const formEdit = document.querySelector('.popup__form-edit');
+const formAdd = document.querySelector('.popup__form-add');
+const validationFormEdit = new formValidator(validationConfig, formEdit);
+const validationFormAdd = new formValidator(validationConfig, formAdd);
+validationFormEdit.enableValidation();
+validationFormAdd.enableValidation();
 
-    // лайкаем карточки
-    cardLikeButton.addEventListener('click', () => {
-        cardLikeButton.classList.toggle('element__button-like_active');
-    });
-
-    // // удаляем карточки
-    cardDeleteButton.addEventListener('click', function (evt) {
-        const evtTarget = evt.target
-        evtTarget.closest('.element').remove();
-    });
-
-    // Открытие картинок
-    cardImage.addEventListener('click', openImagePopup);
-    return newCard;
+// // Открыть окно с картинкой функция
+function handleCardKlick(name, link) {
+    const viewImage = document.querySelector('.popup__image');
+    const viewTitle = document.querySelector('.popup__image-title');
+    viewImage.src = link;
+    viewImage.alt = name;
+    viewTitle.textContent = name;
+    openPopup(imagePopup);
 }
 
 initialCards.forEach(function (el) {
-    cardCase.append(getCard(el.name, el.link));
-});
+    const card = new Card(el.name, el.link, '.template', handleCardKlick)
+    cardCase.append(card.generateCard());
+})
 
-// закрытие на эскейп
-const ESC_CODE = 'Escape'
-
-function handleEsc(evt) {
-    if (evt.key === ESC_CODE) {
-        const activePopup = document.querySelector('.popup_is-opened');
-        closePopup(activePopup);
-    }
-}
-
-// Открыть попап
-function openPopup(popup) {
-    popup.classList.add('popup_is-opened')
-    document.addEventListener('keyup', handleEsc)
-}
-
-// Закрыть попап
-function closePopup(popup) {
-    popup.classList.remove('popup_is-opened')
-    document.removeEventListener('keyup', handleEsc);
-}
+const addNewElement = (evt) => {
+    evt.preventDefault()
+    popupSaveCardAddElement.setAttribute("disabled", true);
+    popupSaveCardAddElement.classList.add(validationConfig.inactiveButtonClass);
+    const newName = newNameElement.value;
+    const newLink = newLinkElement.value;
+    const newCard = new Card(newName, newLink, '.template')
+    cardCase.prepend(newCard.generateCard());
+    closePopup(popupElementAdd);
+    newNameElement.value = "";
+    newLinkElement.value = "";
+};
 
 // Открыть всплывающее окно редактирование профиля
 const openProfilePopup = function () {
@@ -120,39 +79,15 @@ const submitProfileForm = function (evt) {
     closePopup(profilePopup);
 }
 
-// Открыть окно с картинкой функция
-function openImagePopup(event) {
-    const clickElement = event.target.closest(".element__image");
-    openPopup(imagePopup);
-    imageElement.src = clickElement.src;
-    imageElement.alt = clickElement.alt;
-    imageCaption.textContent = clickElement.alt;
-};
-
 //закрытие окона по клику на затемненную область
 const popups = document.querySelectorAll('.popup')
 popups.forEach((popup) => {
-            popup.addEventListener('click', (evt) => {
-                if (evt.target.classList.contains('popup_is-opened')) {
-                    closePopup(popup)
-                }
-            })
-        })
-
-//добавляем новую карточку 
-
-
-const addNewElement = (evt) => {
-    evt.preventDefault()
-    popupSaveCardAddElement.setAttribute("disabled", true);
-popupSaveCardAddElement.classList.add(validationConfig.inactiveButtonClass);
-    const newName = newNameElement.value;
-    const newLink = newLinkElement.value;
-    cardCase.prepend(getCard(newName, newLink));
-    closePopup(popupElementAdd);
-    newNameElement.value = "";
-    newLinkElement.value = "";
-};
+    popup.addEventListener('click', (evt) => {
+        if (evt.target.classList.contains('popup_is-opened')) {
+            closePopup(popup)
+        }
+    })
+})
 
 // Регистрируем обработчики событий по клику
 popupOpenButtonElement.addEventListener('click', () => openProfilePopup(profilePopup));
