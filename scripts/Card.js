@@ -1,10 +1,10 @@
 export class Card {
 
-  constructor(name, link, cardSelector, handleCardKlick) {
+  constructor(name, link, cardSelector, handleCardСlick) {
     this._name = name
     this._link = link
     this._cardSelector = cardSelector
-    this._handleCardKlick = handleCardKlick
+    this._handleCardKlick = handleCardСlick
   }
 
   _getCard() {
@@ -44,8 +44,8 @@ export class Card {
   generateCard() {
     // Запишем разметку в приватное поле _element. 
     this._element = this._getCard();
-    this._element.querySelector('.element__image').style.backgroundImage = `url(${this._image})`;
-    this._element.querySelector('.element__title').textContent = this._title;
+    this._element.querySelector('.element__image').style.backgroundImage = `url(${this._link})`;
+    this._element.querySelector('.element__title').textContent = this._name;
 
     this._setEventListeners();
 

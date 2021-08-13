@@ -2,7 +2,7 @@ import { initialCards } from './initialCards.js'
 import { Card } from './Card.js'
 import { handleEsc, openPopup, closePopup } from './utils.js'
 import validationConfig from './validationConfig.js'
-import formValidator from './FormValidator.js'
+import FormValidator from './FormValidator.js'
 
 // Делаем выборку DOM элементов
 const profileElement = document.querySelector('.profile')
@@ -29,40 +29,50 @@ const cardCase = document.querySelector('.elements');
 const imagePopup = document.querySelector('.popup_type_image')
 const popupCloseImagePopup = imagePopup.querySelector('.popup__button-close')
 
+const viewImage = document.querySelector('.popup__image');
+const viewTitle = document.querySelector('.popup__image-title');
+
 // валидация
 const formEdit = document.querySelector('.popup__form-edit');
 const formAdd = document.querySelector('.popup__form-add');
-const validationFormEdit = new formValidator(validationConfig, formEdit);
-const validationFormAdd = new formValidator(validationConfig, formAdd);
+const validationFormEdit = new FormValidator(validationConfig, formEdit);
+const validationFormAdd = new FormValidator(validationConfig, formAdd);
 validationFormEdit.enableValidation();
 validationFormAdd.enableValidation();
 
 // // Открыть окно с картинкой функция
-function handleCardKlick(name, link) {
-    const viewImage = document.querySelector('.popup__image');
-    const viewTitle = document.querySelector('.popup__image-title');
+function handleCardClick(name, link) {
+    // const viewImage = document.querySelector('.popup__image');
+    // const viewTitle = document.querySelector('.popup__image-title');
     viewImage.src = link;
     viewImage.alt = name;
     viewTitle.textContent = name;
     openPopup(imagePopup);
 }
 
+const createCard = (data, wrap) => {
+    const card = new Card(data.name, data.link, '.template', handleCardClick)
+    wrap.prepend(card.generateCard());
+}
+
+//Создание карточек
 initialCards.forEach(function (el) {
-    const card = new Card(el.name, el.link, '.template', handleCardKlick)
-    cardCase.append(card.generateCard());
+    createCard(el, cardCase)
 })
 
+// Создание новой карточки
 const addNewElement = (evt) => {
     evt.preventDefault()
-    popupSaveCardAddElement.setAttribute("disabled", true);
-    popupSaveCardAddElement.classList.add(validationConfig.inactiveButtonClass);
-    const newName = newNameElement.value;
-    const newLink = newLinkElement.value;
-    const newCard = new Card(newName, newLink, '.template')
-    cardCase.prepend(newCard.generateCard());
+    // popupSaveButtonElementAdd.setAttribute("disabled", true);
+    createCard({
+        name: newNameElement.value,
+        link: newLinkElement.value
+    }, cardCase);
+
     closePopup(popupElementAdd);
-    newNameElement.value = "";
-    newLinkElement.value = "";
+    popupFormElementAdd.reset();
+    validationFormAdd._resetValidation();
+
 };
 
 // Открыть всплывающее окно редактирование профиля
