@@ -68,7 +68,7 @@ export default class FormValidator {
         inputElement.value = '';
     }
     //  делаем кнопку неактивной
-    _resetValidation() {
+    resetValidation() {
         this._setInitialButtonState(true);
 
         this._inputList.forEach((inputElement) => {

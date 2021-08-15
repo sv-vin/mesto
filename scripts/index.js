@@ -71,7 +71,7 @@ const addNewElement = (evt) => {
 
     closePopup(popupElementAdd);
     popupFormElementAdd.reset();
-    validationFormAdd._resetValidation();
+    validationFormAdd.resetValidation();
 
 };
 
