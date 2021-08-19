@@ -42,37 +42,42 @@ validationFormAdd.enableValidation();
 
 // // Открыть окно с картинкой функция
 function handleCardClick(name, link) {
-    // const viewImage = document.querySelector('.popup__image');
-    // const viewTitle = document.querySelector('.popup__image-title');
     viewImage.src = link;
     viewImage.alt = name;
     viewTitle.textContent = name;
     openPopup(imagePopup);
 }
 
-const createCard = (data, wrap) => {
+const createCard = (data) => {
     const card = new Card(data.name, data.link, '.template', handleCardClick)
-    wrap.prepend(card.generateCard());
+    return card.generateCard();
 }
 
-//Создание карточек
-initialCards.forEach(function (el) {
-    createCard(el, cardCase)
-})
+// Добавление карточек
+const renderCard = (data) => {
+    cardCase.append(createCard(data));
+};
 
-// Создание новой карточки
+const renderCards = (items) => {
+    items.forEach(function (item) {
+        renderCard(item)
+    })
+}
+
+renderCards(initialCards);
+
+
 const addNewElement = (evt) => {
     evt.preventDefault()
-    // popupSaveButtonElementAdd.setAttribute("disabled", true);
-    createCard({
-        name: newNameElement.value,
-        link: newLinkElement.value
-    }, cardCase);
-
+    cardCase.prepend(
+        createCard({
+            name: newNameElement.value,
+            link: newLinkElement.value
+        })
+    );
     closePopup(popupElementAdd);
     popupFormElementAdd.reset();
     validationFormAdd.resetValidation();
-
 };
 
 // Открыть всплывающее окно редактирование профиля

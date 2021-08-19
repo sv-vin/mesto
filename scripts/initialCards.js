@@ -1,26 +1,26 @@
 export const initialCards = [
     {
         name: 'Хибины, Мурманская область',
-        link: './images/хибины.jpeg'
+        link: './images/hibini.jpeg'
     },
     {
         name: 'Кижи, Карелия',
-        link: './images/кижи.jpeg'
+        link: './images/kigi.jpeg'
     },
     {
         name: 'Петергоф, Санкт-Петербург',
-        link: './images/петергоф.jpeg'
+        link: './images/petergof.jpeg'
     },
     {
         name: 'Шиханы, Башкортостан',
-        link: './images/шиханы.jpeg'
+        link: './images/shihani.jpeg'
     },
     {
         name: 'Чусовая, Пермский край',
-        link: './images/чусовая.jpeg'
+        link: './images/chysovaia.jpeg'
     },
     {
         name: 'Кучерлинские озера, Алтай',
-        link: './images/кучерлинские-озера.jpeg'
+        link: './images/kycherlinskie_ozera.jpeg'
     }
 ];
