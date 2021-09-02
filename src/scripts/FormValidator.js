@@ -53,9 +53,6 @@ export default class FormValidator {
 
     // делаем кнопку не активной
     _setInitialButtonState(isDisabled) {
-        // const buttonElement = this._formElement.querySelector(
-        //     this._submitButtonSelector
-        // );
         this._buttonElement.disabled = isDisabled;
     }
 
@@ -80,9 +77,6 @@ export default class FormValidator {
 
     // ищем слушателей событий
     _setEventListeners() {
-        // const inputList = Array.from(
-        //     this._formElement.querySelectorAll(this._inputSelector)
-        // );
         this._toggleButtonState(this._inputList);
         this._inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
@@ -94,9 +88,6 @@ export default class FormValidator {
 
     // функция валидации форм 
     _setDefaultErrorState() {
-        // this._inputList = Array.from(
-        //     this._formElement.querySelectorAll(this._inputSelector)
-        // );
         this._inputList.forEach((inputElement) => {
             this._hideInputError(inputElement);
         });
