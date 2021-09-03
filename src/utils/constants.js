@@ -1,3 +1,11 @@
+// Массив карточек
+import hibini from '../images/hibini.jpg';
+import kigi from '../images/kigi.jpg';
+import petergof from '../images/petergof.jpg';
+import shihani from '../images/shihani.jpg';
+import chysovaia from '../images/chysovaia.jpg';
+import kycherlinskie from '../images/kycherlinskie_ozera.jpg';
+
 // Делаем выборку DOM элементов
 // Popups
 const popupProfileEdit = '.popup_type_edit'
@@ -36,14 +44,6 @@ const popupProfileJobInput = document.querySelector(popupProfileEdit).querySelec
 
 const newMestoInput = document.querySelector(popupCardAdd).querySelector('.popup__input_type_name')
 const newLinkInput = document.querySelector(popupCardAdd).querySelector('.popup__input_type_link')
-
-// Массив карточек
-import hibini from '../images/hibini.jpg';
-import kigi from '../images/kigi.jpg';
-import petergof from '../images/petergof.jpg';
-import shihani from '../images/shihani.jpg';
-import chysovaia from '../images/chysovaia.jpg';
-import kycherlinskie from '../images/kycherlinskie_ozera.jpg';
 
 const initialCards = [
     {

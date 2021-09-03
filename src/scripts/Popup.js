@@ -8,7 +8,7 @@ export default class Popup {
 
   //Открытие
   open() {
-    this._setEventListeners();
+    this.setEventListeners();
     this._popup.classList.add('popup_is-opened');
   }
 
@@ -36,7 +36,7 @@ export default class Popup {
 
 
   //Установить слушатели событий
-  _setEventListeners() {
+  setEventListeners() {
     this._popup.addEventListener('click', this._clickClose);
     document.addEventListener('keydown', this._handleEscClose);
   }
