@@ -1,92 +1,240 @@
-import './index.css';
+/* Возникла проблема  выкладыванием страницы на gh-pages
+  я установил все плагины, добавил все необходимые изменения в файл
+  package.json и напписал корректную ссылку в README.MD
+  но при переходe на страницу возникает ошибка, как решить
+  данную проблему я не знаю.
+*/
 
+
+/*
+  Перед отправко как и просили проверил работоспособность всей страницы
+  с открытой консолью (ошибок нет запросы, все работают нормально).
+*/
+
+//импорты
+import './index.css'
+//константы
 import {
-  popupProfileEdit,
-  popupCardAdd,
-  imagePopup,
-  popupFormElement,
-  popupFormElementAdd,
+  popupEditProfile,
+  popupAddElement,
+  popupOpenButtonElement,
+  placeAddButtonElement,
+  popupCloseButtonElement,
+  popupCloseAddElement,
+  formAddElement,
+  placeCard,
+  urlCard,
+  popupElementNameInput,
+  popupElementJobInput,
+  formElement,
+  formSubmitButton,
+  popupSaveAddElement,
+  popupImage,
+  popupImageContainer,
+  popupImageClose,
   cardCase,
-  cardTemplate,
-  popupOpenButtonEditProfile,
-  popupOpenButtonAddPhoto,
-  profileData,
-  popupProfileNameInput,
-  popupProfileJobInput,
-  validationConfig,
-  initialCards
+  formEdit,
+  formAdd,
+  config,
+  userData,
+  formAvatar,
+  popupDeleteCard,
+  popupChangeAvatar,
+  profileAvatarButton,
+  popupDeleteButton
 } from '../utils/constants.js'
+//компоненты
+import Section from '../scripts/Section';
+import Card from '../scripts/Card.js';
 import FormValidator from '../scripts/FormValidator.js';
-import Card from '../scripts/Card.js'
-import Section from '../scripts/Section.js'
-import PopupWithForm from '../scripts/PopupWithForm.js'
-import PopupWithImage from '../scripts/PopupWithImage.js'
-import UserInfo from '../scripts/UserInfo.js'
+import PopupWithImage from '../scripts/PopupWithImage.js';
+import PopupWithForm from '../scripts/PopupWithForm.js';
+import PopupDelete from '../scripts/PopupDelete.js';
+import Userinfo from '../scripts/UserInfo.js';
+import Api from '../scripts/Api.js'
 
-//Валидация
-const validationFormProfile = new FormValidator(validationConfig, popupFormElement);
-validationFormProfile.enableValidation();
 
-const validationFormCard = new FormValidator(validationConfig, popupFormElementAdd);
-validationFormCard.enableValidation();
-
-const createCard = (item) => {
-  const card = new Card(item, cardTemplate, handleCardClick);
-  return card
-}
-
-// Рендеринг карточек начальный
-const cardsList = new Section({
-  data: initialCards,
-  renderer: (item) => {
-    const card = createCard(item);
-    const сardElement = card.renderCard();
-    cardsList.addItem(сardElement);
+//Сервер
+const api = new Api({
+  url: 'https://mesto.nomoreparties.co/v1/cohort-27',
+  headers: {
+    authorization: 'de527c55-955e-4a3f-a6e9-87feee430703',
+    'Content-type': 'application/json'
   }
-}, cardCase);
+})
 
-cardsList.renderItems();
+let userId;
 
-// Открытие окна с картинкой 
-const openImageBigPopup = new PopupWithImage(imagePopup);
+Promise.all([api.getPersonalInfo(), api.getCard()])
+  .then(([data, item]) => {
+    console.log(item)//данные карточек
+    console.log(data)//данные пользователя
+    userInfo.setUserInfo(data)
+    userId = data._id
+    cardList.renderItems(item)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
 
-function handleCardClick(name, link) {
-  openImageBigPopup.open(name, link);
+//Ф-ция создания карточек
+function createCard(item, cardSelector) {
+  const card = new Card({
+    item, handleCardClick: (name, link) => {
+      openImage.open(name, link)
+    },
+    deleteCard: () => {
+      popupDelete.open(card)
+    },
+    likeCard: () => {
+      const likedCard = card.likedCard();
+      const result = likedCard ? api.awaylikeCard(card.getItemId()) : api.likeCard(card.getItemId());
+
+      result.then(data => {
+        card.setLike(data.likes);
+        card.renderLike()
+
+      }).catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      })
+    }
+  }, cardSelector, item._id, userId)
+
+  return card
 };
 
-//редактирование профиля
-const userInfo = new UserInfo(profileData);
-
-//Создать экземпляр класса PopupWithForm
-const popupWithUserForm = new PopupWithForm(
-  popupProfileEdit, {
-  handleFormSubmit: (userData) => {
-    userInfo.setUserInfo(userData);
-    popupWithUserForm.close();
+//Рендер
+const cardList = new Section({
+  renderer: (item) => {
+    const card = createCard(item, '.cards-template')
+    const cardElement = card.generateCard();
+    cardList.appendItem(cardElement);
   }
-});
+},
+  cardCase);
 
-//Открыть редактор профиля  клик
-popupOpenButtonEditProfile.addEventListener('click', () => {
-  validationFormProfile.resetValidation();
-  popupProfileNameInput.value = userInfo.getUserInfo().name;
-  popupProfileJobInput.value = userInfo.getUserInfo().job;
-  popupWithUserForm.open();
-});
+//Класс открытия
+const openImage = new PopupWithImage(popupImage);
 
-//добавление карточки
-const popupWithPhotoForm = new PopupWithForm(
-  popupCardAdd, {
-  handleFormSubmit: (cardItem) => {
-    const card = createCard({ name: cardItem.form_mesto, link: cardItem.form_link });
-    const сardElement = card.renderCard();
-    cardsList.addItem(сardElement);
-    popupWithPhotoForm.close();
+//Редактор профиля
+const userInfo = new Userinfo(userData);
+
+// создание новых карточек
+const newCard = new PopupWithForm(
+  popupAddElement,
+  (item) => {
+    newCard.renderLoading(true)
+    api.addNewCard(item)
+      .then(item => {
+        console.log(item)
+        const newCards = createCard(item, '.cards-template')
+        const newAddedCard = newCards.generateCard()
+        cardList.prependItem(newAddedCard)
+        newCard.close()
+      })
+      .finally(() => {
+        newCard.renderLoading(false)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  })
+
+// попап профиля
+const popupProfileChange = new PopupWithForm(
+  popupEditProfile,
+  (data) => {
+    popupProfileChange.renderLoading(true)
+    api.changeUserInfo(data)
+      .then(() => {
+        console.log(data)
+        userInfo.setUserInfo(data)
+        popupProfileChange.close()
+      })
+      .finally(() => {
+        popupProfileChange.renderLoading(false)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
+)
+
+//Новый аватар
+const changeAvatar = new PopupWithForm(
+  popupChangeAvatar,
+  (item) => {
+    changeAvatar.renderLoading(true)
+    console.log(item)
+    api.editAvatarUser(item.link)
+      .then((res) => {
+        console.log(res)
+        userInfo.setUserInfo(res)
+        changeAvatar.close()
+      })
+      .finally(() => {
+        changeAvatar.renderLoading(false)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+)
+
+//Удаление
+const popupDelete = new PopupDelete(popupDeleteCard, (evt, card) => {
+  deleteCard(evt, card)
+})
+
+function deleteCard(evt, newCard) {
+  console.log(newCard.getItemId())
+  console.log(evt)
+  api.removeCard(newCard.getItemId())
+    .then(() => {
+      newCard.removeCard()
+      popupDelete.close()
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+//Закрытие попапов на кнопку и на оверлей(то как я понял нужно решить ту ошибку на которую вы указали в классе Popup)
+popupDelete.setEventListeners()
+openImage.setEventListeners()
+popupProfileChange.setEventListeners()
+changeAvatar.setEventListeners()
+newCard.setEventListeners()
+
+//Открыть редактор профиля
+popupOpenButtonElement.addEventListener('click', () => {
+  validatorEditProfile.resetValidation();
+  const profileInputInfo = userInfo.getUserInfo()
+  popupElementNameInput.value = profileInputInfo.nameSelector;
+  popupElementJobInput.value = profileInputInfo.infoSelector;
+  popupProfileChange.open();
 });
 
-//Добавление фоток клик
-popupOpenButtonAddPhoto.addEventListener('click', () => {
-  validationFormCard.resetValidation();
-  popupWithPhotoForm.open();
+//Добавление фото
+placeAddButtonElement.addEventListener('click', () => {
+  validatorAddPlace.resetValidation();
+  newCard.open();
 });
+
+//Новый аватар
+profileAvatarButton.addEventListener('click', () => {
+  validatorChangeAvatar.resetValidation()
+  changeAvatar.open()
+})
+
+
+
+//Валидация
+const validatorEditProfile = new FormValidator(config, formEdit);
+const validatorAddPlace = new FormValidator(config, formAdd);
+const validatorChangeAvatar = new FormValidator(config, formAvatar);
+
+validatorEditProfile.enableValidation();
+validatorAddPlace.enableValidation();
+validatorChangeAvatar.enableValidation();
+

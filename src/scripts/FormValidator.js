@@ -1,103 +1,87 @@
 export default class FormValidator {
-    constructor(config, formElement) {
-        this._formElement = formElement;
-        this._inputSelector = config.inputSelector;
-        this._submitButtonSelector = config.submitButtonSelector;
-        this._inputErrorClass = config.inputErrorClass;
-        this._errorClass = config.errorClass;
-        this._inputList = Array.from(
-            this._formElement.querySelectorAll(this._inputSelector)
-        );
-        this._buttonElement = this._formElement.querySelector(
-            this._submitButtonSelector
-        );
+  constructor(config, formElement) {
+    this._formSelector = config.formSelector
+    this._inputSelector = config.inputSelector
+    this._submitButtonSelector = config.submitButtonSelector
+    this._inactiveButtonClass = config.inactiveButtonClass
+    this._inputErrorClass = config.inputErrorClass
+    this._errorClass = config.errorClass
+    this._errorClassActive = config.errorClassActive
+    this._sectionInput = config.sectionInput
+    this._formElement = formElement
+  }
 
+  //отобразить сообщение
+  _showInputError = (inputElement) => {
+    const _formSection = inputElement.closest(this._sectionInput);
+    const _errorElement = _formSection.querySelector(this._errorClass);
+    this._errorMessage = inputElement.validationMessage;
+    _errorElement.textContent = this._errorMessage;
+    _errorElement.classList.add(this._errorClassActive);
+    inputElement.classList.add(this._inputErrorClass);
+  }
+
+  //спрятать сообщение
+  _hideInputError = (inputElement) => {
+    const _formSection = inputElement.closest(this._sectionInput);
+    const _errorElement = _formSection.querySelector(this._errorClass);
+    _errorElement.textContent = "";
+    _errorElement.classList.remove(this._errorClassActive);
+    inputElement.classList.remove(this._inputErrorClass);
+  }
+
+  //проверка
+  _checkInputValidity = (inputElement) => {
+    this._isInputNotValid = !inputElement.validity.valid;
+    if (this._isInputNotValid) {
+      this._showInputError(inputElement);
+    } else {
+      this._hideInputError(inputElement);
     }
+  }
 
-    //ищем элемент с текстом ошибки 
-    _returnErrorElement(inputElement) {
-        return this._formElement.querySelector(`#${inputElement.id}-error`);
+  //дизейбл кнопки тут в аргумент можно добавить инпутЛист
+  toggleButtonState() {
+    const _findNotValid = (inputElement) => !inputElement.validity.valid;
+    const _hasNotValidInput = this._inputList.some(_findNotValid);
+
+    if (_hasNotValidInput) {
+      this._submitButtonElement.setAttribute('disabled', true);
+      this._submitButtonElement.classList.add(this._inactiveButtonClass);
+    } else {
+      this._submitButtonElement.removeAttribute('disabled');
+      this._submitButtonElement.classList.remove(this._inactiveButtonClass);
     }
+  };
 
-    // проверяем на валидность
-    _checkInputValidity(inputElement) {
-        if (!inputElement.validity.valid) {
-            this._showInputError(inputElement, inputElement.validationMessage);
-        } else {
-            this._hideInputError(inputElement);
-        }
-    }
+  //слушатель
+  _setEventListeners() {
+    //проходим по полям формы
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+    //Находим кнопку
+    this._submitButtonElement = this._formElement.querySelector(this._submitButtonSelector);
+    this.toggleButtonState();
+    //Запуск проверки ошибки
+    this._inputList.forEach((inputElement) => {
+      inputElement.addEventListener('input', (event) => {
+        this._checkInputValidity(inputElement);
+        this.toggleButtonState(inputElement);
+      });
+    });
+  }
 
-    // показать ошибку
-    _showInputError(inputElement, errorMessage) {
-        const errorElement = this._returnErrorElement(inputElement);
-        inputElement.classList.add(this._inputErrorClass);
-        errorElement.classList.add(this._errorClass);
-        errorElement.textContent = errorMessage;
-    }
+  resetValidation() {
+    this.toggleButtonState()
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement)
+    });
+  }
 
-    // скрыть ошибку
-    _hideInputError(inputElement) {
-        const errorElement = this._returnErrorElement(inputElement);
-        inputElement.classList.remove(this._inputErrorClass);
-        errorElement.classList.remove(this._errorClass);
-        errorElement.textContent = '';
-    }
-
-    // выводим текст ошибки
-    _findInvalidInput(inputList) {
-        return inputList.some((inputElement) => {
-            return !inputElement.validity.valid;
-        });
-    }
-
-    // делаем кнопку не активной
-    _setInitialButtonState(isDisabled) {
-        this._buttonElement.disabled = isDisabled;
-    }
-
-    _toggleButtonState(inputList) {
-        this._setInitialButtonState(this._findInvalidInput(inputList));
-    }
-
-    // очищаем импуты
-    _clearInputValue(inputElement) {
-        inputElement.value = '';
-    }
-    //  делаем кнопку неактивной
-    resetValidation() {
-        this._setInitialButtonState(true);
-
-        this._inputList.forEach((inputElement) => {
-            this._hideInputError(inputElement)
-            this._clearInputValue(inputElement)
-        });
-
-    }
-
-    // ищем слушателей событий
-    _setEventListeners() {
-        this._toggleButtonState(this._inputList);
-        this._inputList.forEach((inputElement) => {
-            inputElement.addEventListener('input', () => {
-                this._checkInputValidity(inputElement);
-                this._toggleButtonState(this._inputList);
-            });
-        });
-    }
-
-    // функция валидации форм 
-    _setDefaultErrorState() {
-        this._inputList.forEach((inputElement) => {
-            this._hideInputError(inputElement);
-        });
-    }
-
-    enableValidation() {
-        this._formElement.addEventListener('submit', (evt) => {
-            evt.preventDefault();
-        });
-        this._setEventListeners();
-    }
-
+  enableValidation() {
+    this._formElement.addEventListener('submit', (event) => {
+      event.preventDefault()
+    });
+    this._setEventListeners();
+  }
 }
+

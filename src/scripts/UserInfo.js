@@ -1,20 +1,30 @@
-export default class UserInfo {
-  constructor({ nameSelector, jobSelector }) {
+export default class Userinfo {
+  constructor({ nameSelector, infoSelector, avatar }) {
     this._name = document.querySelector(nameSelector);
-    this._job = document.querySelector(jobSelector);
+    this._job = document.querySelector(infoSelector);
+    this._avatar = document.querySelector(avatar);
   }
-
-  // получить данные
+  //Собрать
   getUserInfo() {
-    return {
-      name: this._name.textContent,
-      job: this._job.textContent
-    };
-  }
+    const userInfo = {
+      nameSelector: this._name.textContent,
+      infoSelector: this._job.textContent
+    }
 
-  // установить данные
-  setUserInfo({ form_name, form_job }) {
-    this._name.textContent = form_name;
-    this._job.textContent = form_job;
+    return userInfo
+  }
+  //Править
+  setUserInfo({ name, about, avatar }) {
+    if (name) {
+      this._name.textContent = name
+    }
+    if (about) {
+      this._job.textContent = about
+    }
+    if (avatar) {
+      this._avatar.src = avatar
+    }
   }
 }
+
+

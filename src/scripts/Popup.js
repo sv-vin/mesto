@@ -1,49 +1,32 @@
 export default class Popup {
-  constructor(popupSelector) {
-    this._popupSelector = popupSelector;
-    this._popup = document.querySelector(popupSelector)
+  constructor(popupElement) {
+    this._popupElement = popupElement;
     this._handleEscClose = this._handleEscClose.bind(this);
-    this._clickClose = this._clickClose.bind(this);
   }
-
-  //Открытие
+  //Открыть
   open() {
-    this.setEventListeners();
-    this._popup.classList.add('popup_is-opened');
+    this._popupElement.classList.add('popup__opened');
+    document.addEventListener('keydown', this._handleEscClose);
   }
-
-
-  //Закрытие
+  //Закрыть
   close() {
-    this._removeEventListeners();
-    this._popup.classList.remove('popup_is-opened');
+    this._popupElement.classList.remove('popup__opened');
+    document.removeEventListener('keydown', this._handleEscClose);
   }
-
-
-  //Закрыть по ESC
-  _handleEscClose(evt) {
-    if (evt.key === 'Escape') {
+  //Закрытие на esc
+  _handleEscClose(event) {
+    if (event.key === 'Escape') {
       this.close();
     }
   }
-
-
-  //закрытие окна по клику
-  _clickClose(evt) {
-    if (evt.target.classList.contains('popup__button-close') || evt.target.classList.contains('popup'))
-      this.close();
-  }
-
-
-  //Установить слушатели событий
+  //Слушатель
   setEventListeners() {
-    this._popup.addEventListener('click', this._clickClose);
-    document.addEventListener('keydown', this._handleEscClose);
+    this._popupElement.addEventListener('click', (evt) => {
+      if (evt.target.classList.contains('popup__opened') || evt.target.classList.contains('popup__close')) {
+        this.close()
+      }
+    });
   }
 
-  //Убрать слушатели событий
-  _removeEventListeners() {
-    this._popup.removeEventListener('click', this._clickClose);
-    document.removeEventListener('keydown', this._handleEscClose);
-  }
 }
+
