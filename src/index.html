@@ -9,9 +9,9 @@
 
 <body class="body">
   <div class="page">
-      <!-- хэдер -->
-      <header class="header">
-        <img src="<%=require('./images/logo.svg')%>" alt="Логотип места России" class="header__logo">
+    <!-- хэдер -->
+    <header class="header">
+      <img src="<%=require('./images/logo.svg')%>" alt="Логотип места России" class="header__logo">
     </header>
     <main class="content">
       <!-- профайл -->
@@ -35,7 +35,7 @@
       <section class="cards">
       </section>
     </main>
-<!-- футер -->
+    <!-- футер -->
     <footer class="footer">
       <p class="footer__copyringht">&copy; 2020 Mesto Russia</p>
     </footer>
@@ -83,16 +83,16 @@
         </div>
       </div>
     </div>
-<!-- попап картинки -->
-<article class="popup popup-place">
-  <div class="popup-place__container">
-    <button type="button" class="popup__close popup-place__close"></button>
-    <img class="popup-place__img" src=" " alt=" ">
-    <h2 class="popup-place__title"></h2>
-  </div>
-</article>
-<!-- попап удаления -->
-    <div class="popup popup_type_delete">
+    <!-- попап картинки -->
+    <article class="popup popup-place">
+      <div class="popup-place__container">
+        <button type="button" class="popup__close popup-place__close"></button>
+        <img class="popup-place__img" src=" " alt=" ">
+        <h2 class="popup-place__title"></h2>
+      </div>
+    </article>
+    <!-- попап удаления -->
+    <div class="popup popup-delete">
       <div class="popup__container">
         <button type="button" class="popup__close popup-delete__close"></button>
         <h2 class="popup-delete__title">Вы уверены?</h2>
@@ -101,7 +101,7 @@
         </form>
       </div>
     </div>
-<!-- папап аватарки -->
+    <!-- папап аватарки -->
     <div class="popup popup_type_avatar">
       <div class="popup__container">
         <button type="button" class="popup__close"></button>
@@ -118,7 +118,7 @@
         </div>
       </div>
     </div>
-<!-- темплейт -->
+    <!-- темплейт -->
   </div>
   <template class="cards-template">
     <article class="card">

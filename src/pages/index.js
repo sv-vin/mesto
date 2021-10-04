@@ -1,16 +1,3 @@
-/* Возникла проблема  выкладыванием страницы на gh-pages
-  я установил все плагины, добавил все необходимые изменения в файл
-  package.json и напписал корректную ссылку в README.MD
-  но при переходe на страницу возникает ошибка, как решить
-  данную проблему я не знаю.
-*/
-
-
-/*
-  Перед отправко как и просили проверил работоспособность всей страницы
-  с открытой консолью (ошибок нет запросы, все работают нормально).
-*/
-
 //импорты
 import './index.css'
 //константы
@@ -44,14 +31,14 @@ import {
   popupDeleteButton
 } from '../utils/constants.js'
 //компоненты
-import Section from '../scripts/Section';
-import Card from '../scripts/Card.js';
-import FormValidator from '../scripts/FormValidator.js';
-import PopupWithImage from '../scripts/PopupWithImage.js';
-import PopupWithForm from '../scripts/PopupWithForm.js';
-import PopupDelete from '../scripts/PopupDelete.js';
-import Userinfo from '../scripts/UserInfo.js';
-import Api from '../scripts/Api.js'
+import Section from '../components/Section';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import PopupDelete from '../components/PopupDelete.js';
+import Userinfo from '../components/UserInfo.js';
+import Api from '../components/Api.js'
 
 
 //Сервер

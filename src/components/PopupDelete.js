@@ -1,14 +1,14 @@
 import Popup from "./Popup.js";
 
 export default class PopupDelete extends Popup {
-  constructor(popupElement, submit) {
-    super(popupElement)
+  constructor(popup, submit) {
+    super(popup)
     this._submit = submit
   }
-//сабмит
+  //сабмит
   setEventListeners() {
     super.setEventListeners()
-    this._popupElement.addEventListener('submit', (event) => {
+    this._popup.addEventListener('submit', (event) => {
       event.preventDefault()
       this._submit(event, this._cardElement)
     })

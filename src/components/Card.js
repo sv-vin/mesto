@@ -32,11 +32,6 @@ export default class Card {
     });
 
   }
-  //Удалить ф-ция
-//  _deleteImgClick() {
-//    this._element.remove();
-//   this._element = null;
-//  }
 
   generateCard() {
     this._element = this._getCard();

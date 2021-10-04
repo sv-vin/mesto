@@ -1,16 +1,18 @@
+import { popupElement } from "../utils/constants";
+
 export default class Popup {
   constructor(popupElement) {
-    this._popupElement = popupElement;
+    this._popup = document.querySelector(popupElement);
     this._handleEscClose = this._handleEscClose.bind(this);
   }
   //Открыть
   open() {
-    this._popupElement.classList.add('popup__opened');
+    this._popup.classList.add('popup__opened');
     document.addEventListener('keydown', this._handleEscClose);
   }
   //Закрыть
   close() {
-    this._popupElement.classList.remove('popup__opened');
+    this._popup.classList.remove('popup__opened');
     document.removeEventListener('keydown', this._handleEscClose);
   }
   //Закрытие на esc
@@ -21,12 +23,12 @@ export default class Popup {
   }
   //Слушатель
   setEventListeners() {
-    this._popupElement.addEventListener('click', (evt) => {
-      if (evt.target.classList.contains('popup__opened') || evt.target.classList.contains('popup__close')) {
-        this.close()
-      }
-    });
+    this._popup
+      .addEventListener('click', (evt) => {
+        if (evt.target.classList.contains('popup__opened') || evt.target.classList.contains('popup__close')) {
+          this.close()
+        }
+      });
   }
 
 }
-

@@ -1,16 +1,16 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
-  constructor(popupElement, handleFormSubmit) {
-    super(popupElement);
+  constructor(popup, handleFormSubmit) {
+    super(popup);
     this._handleFormSubmit = handleFormSubmit;
-    this._formElement = this._popupElement.querySelector('.popup__form');
+    this._formElement = this._popup.querySelector('.popup__form');
     this._inputList = this._formElement.querySelectorAll('.popup__input');
     this._handleSubmit = (evt) => {
       evt.preventDefault();
       this._handleFormSubmit(this._getInputValues());
     };
-    this._submitButton = this._popupElement.querySelector('.popup__submit-button')
+    this._submitButton = this._popup.querySelector('.popup__submit-button')
     this._defaultSubmitButton = this._submitButton.textContent
   }
 
